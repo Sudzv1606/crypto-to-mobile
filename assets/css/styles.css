@@ -1,1 +1,70 @@
-# Global CSS 
+/* Reset and global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+}
+
+/* Gradient background for header */
+.gradient-bg {
+  background: linear-gradient(135deg, #1a365d 0%, #2a5298 100%);
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Ensure card icons are properly sized */
+.card-hover i {
+  font-size: 2rem;
+}
+
+/* Loading spinner */
+.loading::after {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+  margin-left: 5px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Calculator input styles */
+input[type="number"], select {
+  background-color: #2d3748;
+  color: #e2e8f0;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  width: 100%;
+}
+
+input[type="number"]:focus, select:focus {
+  outline: none;
+  ring: 2px solid #63b3ed;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .card-hover {
+    margin: 0 auto;
+    max-width: 300px;
+  }
+}
