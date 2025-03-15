@@ -3,8 +3,8 @@ console.log('CashCrypto API script loaded.');
 async function fetchCryptoRates() {
   console.log('Fetching crypto rates...');
   try {
-    // Fetch BTC and USDT rates in USD from CoinGecko (free)
-    const cryptoResponse = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,tether&vs_currencies=usd', {
+    // Use CORS proxy for CoinGecko API
+    const cryptoResponse = await fetch('https://cors-anywhere.herokuapp.com/https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,tether&vs_currencies=usd', {
       mode: 'cors',
       headers: { 'Accept': 'application/json' },
     });
@@ -13,11 +13,13 @@ async function fetchCryptoRates() {
     const btcPriceUsd = cryptoData.bitcoin?.usd || 0;
     const usdtPriceUsd = cryptoData.tether?.usd || 1;
     if (!btcPriceUsd) throw new Error('BTC price not found');
+    console.log('Crypto data:', { btcPriceUsd, usdtPriceUsd });
 
-    // Fetch real-time USD-to-local rates from ExchangeRate-API (free)
-    const forexResponse = await fetch('https://open.er-api.com/v6/latest/USD');
+    // Use CORS proxy for ExchangeRate-API
+    const forexResponse = await fetch('https://cors-anywhere.herokuapp.com/https://open.er-api.com/v6/latest/USD');
     if (!forexResponse.ok) throw new Error(`Forex API error! Status: ${forexResponse.status}`);
     const forexData = await forexResponse.json();
+    console.log('Forex data:', forexData);
     const exchangeRates = {
       KES: forexData.rates.KES || 130,
       NGN: forexData.rates.NGN || 1600,
@@ -45,13 +47,16 @@ async function fetchCryptoRates() {
       btc: { KES: 3850000, NGN: 46000000, PHP: 2100000, GHS: 540000, TZS: 98000000 },
       usdt: { KES: 130, NGN: 1600, PHP: 58, GHS: 15, TZS: 2700 }
     };
+    console.log('Using fallback rates:', fallbackRates);
     updateRatesInDOM(fallbackRates);
     return fallbackRates;
   }
 }
 
 function updateRatesInDOM(rates) {
+  console.log('Updating rates in DOM...');
   const isHomepage = window.location.pathname === '/' || window.location.pathname.includes('index.html');
+  console.log('Is homepage:', isHomepage);
 
   if (isHomepage) {
     const rateElements = [
@@ -68,7 +73,9 @@ function updateRatesInDOM(rates) {
     ];
 
     rateElements.forEach(({ id, currency }) => {
+      console.log(`Updating element ${id} with BTC rate: ${rates.btc[currency]}`);
       updateRate(id, rates.btc[currency], currency);
+      console.log(`Updating element ${id.replace('btc', 'usdt')} with USDT rate: ${rates.usdt[currency]}`);
       updateRate(id.replace('btc', 'usdt'), rates.usdt[currency], currency);
     });
   } else {
@@ -79,13 +86,17 @@ function updateRatesInDOM(rates) {
     else if (path.includes('btc-to-airtel')) targetCurrency = 'GHS';
     else if (path.includes('btc-to-vodacom-mpesa')) targetCurrency = 'TZS';
 
+    console.log(`Updating non-homepage rates for ${targetCurrency}`);
     updateRate('btc-to-kes-rate', rates.btc[targetCurrency], targetCurrency);
     updateRate('usdt-to-kes-rate', rates.usdt[targetCurrency], targetCurrency);
     updateRate('live-btc-rate', rates.btc[targetCurrency], '');
     updateRate('live-usdt-rate', rates.usdt[targetCurrency], '');
 
     const updateTime = document.getElementById('update-time');
-    if (updateTime) updateTime.textContent = new Date().toLocaleTimeString();
+    if (updateTime) {
+      updateTime.textContent = new Date().toLocaleTimeString();
+      console.log('Updated time:', updateTime.textContent);
+    }
   }
 }
 
@@ -94,6 +105,9 @@ function updateRate(elementId, rate, currency) {
   if (element) {
     if (element.classList.contains('loading')) element.classList.remove('loading');
     element.textContent = currency ? `${Math.round(rate).toLocaleString()} ${currency}` : `${Math.round(rate).toLocaleString()}`;
+    console.log(`Updated ${elementId} to ${element.textContent}`);
+  } else {
+    console.warn(`Element with ID ${elementId} not found in DOM`);
   }
 }
 
@@ -121,10 +135,12 @@ function setupCalculator(rates) {
     const rate = cryptoType === 'BTC' ? rates.btc[targetCurrency] : rates.usdt[targetCurrency];
     const convertedAmount = amount * rate;
     resultSpan.textContent = `${new Intl.NumberFormat().format(Math.round(convertedAmount))} ${targetCurrency}`;
+    console.log(`Calculated: ${amount} ${cryptoType} = ${convertedAmount} ${targetCurrency}`);
   });
 
   return function updateCalculator(newRates) {
     rates = newRates;
+    console.log('Calculator updated with new rates:', rates);
   };
 }
 
