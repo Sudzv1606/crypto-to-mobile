@@ -3,7 +3,7 @@ console.log('CashCrypto API script loaded.');
 async function fetchCryptoRates() {
   console.log('Fetching crypto rates...');
   try {
-    const cryptoResponse = await fetch('https://cors-anywhere.herokuapp.com/https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,tether&vs_currencies=usd', {
+    const cryptoResponse = await fetch('https://corsproxy.io/?https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,tether&vs_currencies=usd', {
       mode: 'cors',
       headers: { 'Accept': 'application/json' },
     });
@@ -14,8 +14,8 @@ async function fetchCryptoRates() {
     if (!btcPriceUsd) throw new Error('BTC price not found');
     console.log('Crypto data:', { btcPriceUsd, usdtPriceUsd });
 
-    const forexResponse = await fetch('https://cors-anywhere.herokuapp.com/https://open.er-api.com/v6/latest/USD');
-    if (!forexResponse.ok) throw new Error(`Forex API error! Status: ${forexResponse.status}`);
+    const forexResponse = await fetch('https://corsproxy.io/?https://open.er-api.com/v6/latest/USD');
+    if (!forexResponse.ok) throw new Error(`Forex API error! Status: ${cryptoResponse.status}`);
     const forexData = await forexResponse.json();
     console.log('Forex data:', forexData);
     const exchangeRates = {
@@ -82,14 +82,24 @@ function updateRatesInDOM(rates) {
   } else {
     const path = window.location.pathname;
     let targetCurrency = 'KES';
-    if (path.includes('btc-to-naira')) targetCurrency = 'NGN';
-    else if (path.includes('btc-to-gcash')) targetCurrency = 'PHP';
-    else if (path.includes('btc-to-airtel')) targetCurrency = 'GHS';
-    else if (path.includes('btc-to-vodacom-mpesa')) targetCurrency = 'TZS';
+    let currencyCode = 'kes';
+    if (path.includes('btc-to-naira')) {
+      targetCurrency = 'NGN';
+      currencyCode = 'ngn';
+    } else if (path.includes('btc-to-gcash')) {
+      targetCurrency = 'PHP';
+      currencyCode = 'php';
+    } else if (path.includes('btc-to-airtel')) {
+      targetCurrency = 'GHS';
+      currencyCode = 'ghs';
+    } else if (path.includes('btc-to-vodacom-mpesa')) {
+      targetCurrency = 'TZS';
+      currencyCode = 'tzs';
+    }
 
     console.log(`Updating non-homepage rates for ${targetCurrency}`);
-    updateRate('btc-to-kes-rate', rates.btc[targetCurrency], targetCurrency);
-    updateRate('usdt-to-kes-rate', rates.usdt[targetCurrency], targetCurrency);
+    updateRate(`btc-to-${currencyCode}-rate`, rates.btc[targetCurrency], targetCurrency);
+    updateRate(`usdt-to-${currencyCode}-rate`, rates.usdt[targetCurrency], targetCurrency);
     updateRate('live-btc-rate', rates.btc[targetCurrency], '');
     updateRate('live-usdt-rate', rates.usdt[targetCurrency], '');
 
@@ -121,7 +131,7 @@ function setupCalculator(rates) {
 
   if (!amountInput || !cryptoTypeSelect || !calculateBtn || !resultSpan) {
     console.log('Calculator elements not found.');
-    return;
+    return () => {};
   }
 
   const path = window.location.pathname;
