@@ -3,7 +3,6 @@ console.log('CashCrypto API script loaded.');
 async function fetchCryptoRates() {
   console.log('Fetching crypto rates...');
   try {
-    // Use CORS proxy for CoinGecko API
     const cryptoResponse = await fetch('https://cors-anywhere.herokuapp.com/https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,tether&vs_currencies=usd', {
       mode: 'cors',
       headers: { 'Accept': 'application/json' },
@@ -15,7 +14,6 @@ async function fetchCryptoRates() {
     if (!btcPriceUsd) throw new Error('BTC price not found');
     console.log('Crypto data:', { btcPriceUsd, usdtPriceUsd });
 
-    // Use CORS proxy for ExchangeRate-API
     const forexResponse = await fetch('https://cors-anywhere.herokuapp.com/https://open.er-api.com/v6/latest/USD');
     if (!forexResponse.ok) throw new Error(`Forex API error! Status: ${forexResponse.status}`);
     const forexData = await forexResponse.json();
@@ -28,7 +26,6 @@ async function fetchCryptoRates() {
       TZS: forexData.rates.TZS || 2700
     };
 
-    // Calculate rates
     const rates = {
       btc: {},
       usdt: {}
@@ -36,6 +33,8 @@ async function fetchCryptoRates() {
     for (const [currency, rate] of Object.entries(exchangeRates)) {
       rates.btc[currency] = btcPriceUsd * rate;
       rates.usdt[currency] = usdtPriceUsd * rate;
+      if (isNaN(rates.btc[currency]) || !isFinite(rates.btc[currency])) rates.btc[currency] = 0;
+      if (isNaN(rates.usdt[currency]) || !isFinite(rates.usdt[currency])) rates.usdt[currency] = 0;
     }
 
     console.log('Calculated rates:', rates);
@@ -55,7 +54,7 @@ async function fetchCryptoRates() {
 
 function updateRatesInDOM(rates) {
   console.log('Updating rates in DOM...');
-  const isHomepage = window.location.pathname === '/' || window.location.pathname.includes('index.html');
+  const isHomepage = window.location.pathname === '/' || window.location.pathname === '/index.html' || window.location.pathname === '/crypto-to-mobile/';
   console.log('Is homepage:', isHomepage);
 
   if (isHomepage) {
@@ -73,10 +72,12 @@ function updateRatesInDOM(rates) {
     ];
 
     rateElements.forEach(({ id, currency }) => {
-      console.log(`Updating element ${id} with BTC rate: ${rates.btc[currency]}`);
-      updateRate(id, rates.btc[currency], currency);
-      console.log(`Updating element ${id.replace('btc', 'usdt')} with USDT rate: ${rates.usdt[currency]}`);
-      updateRate(id.replace('btc', 'usdt'), rates.usdt[currency], currency);
+      const btcRate = rates.btc[currency] || 0;
+      const usdtRate = rates.usdt[currency] || 0;
+      console.log(`Updating element ${id} with BTC rate: ${btcRate}`);
+      updateRate(id, btcRate, currency);
+      console.log(`Updating element ${id.replace('btc', 'usdt')} with USDT rate: ${usdtRate}`);
+      updateRate(id.replace('btc', 'usdt'), usdtRate, currency);
     });
   } else {
     const path = window.location.pathname;
@@ -104,7 +105,8 @@ function updateRate(elementId, rate, currency) {
   const element = document.getElementById(elementId);
   if (element) {
     if (element.classList.contains('loading')) element.classList.remove('loading');
-    element.textContent = currency ? `${Math.round(rate).toLocaleString()} ${currency}` : `${Math.round(rate).toLocaleString()}`;
+    const displayRate = (typeof rate === 'number' && !isNaN(rate) && isFinite(rate)) ? Math.round(rate) : 'N/A';
+    element.textContent = displayRate === 'N/A' ? 'N/A' : `${displayRate.toLocaleString()} ${currency}`;
     console.log(`Updated ${elementId} to ${element.textContent}`);
   } else {
     console.warn(`Element with ID ${elementId} not found in DOM`);
@@ -149,11 +151,17 @@ document.addEventListener('DOMContentLoaded', async () => {
   const rates = await fetchCryptoRates();
   const updateCalculator = setupCalculator(rates);
 
-  const isHomepage = window.location.pathname === '/' || window.location.pathname.includes('index.html');
+  const isHomepage = window.location.pathname === '/' || window.location.pathname === '/index.html' || window.location.pathname === '/crypto-to-mobile/';
   if (!isHomepage) {
     setInterval(async () => {
-      const newRates = await fetchCryptoRates();
-      updateCalculator(newRates);
+      try {
+        const newRates = await fetchCryptoRates();
+        if (typeof updateCalculator === 'function') {
+          updateCalculator(newRates);
+        }
+      } catch (error) {
+        console.error('Interval error:', error);
+      }
     }, 60000); // Every minute
   }
 });
