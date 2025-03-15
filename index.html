@@ -1,1 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Use CashCrypto Conversion Checker to estimate cryptocurrency conversion rates. Convert BTC to M-Pesa, Nigerian Naira, GCash, Airtel Money, and Vodacom M-Pesa with real-time rates for Kenya, Nigeria, Philippines, and more.">
+  <meta name="keywords" content="crypto conversion checker, convert BTC to mobile money, BTC to M-Pesa conversion, crypto to Naira rates, cryptocurrency conversion rates, USDT to GCash, Airtel Money crypto rates, Vodacom M-Pesa BTC rates">
+  <meta name="author" content="CashCrypto Team">
+  <title>CashCrypto | Crypto Conversion Checker - Convert BTC to Mobile Money</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen flex flex-col">
+  <!-- Modern Header -->
+  <header class="gradient-bg py-8">
+    <div class="max-w-6xl mx-auto px-4 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-200">
+        CashCrypto Conversion Checker
+      </h1>
+      <p class="text-lg text-blue-100 max-w-2xl mx-auto">
+        Estimate <strong>cryptocurrency conversion rates</strong> effortlessly. Convert BTC and USDT to mobile money services like M-Pesa, Nigerian Naira, GCash, Airtel Money, and Vodacom M-Pesa in real-time.
+      </p>
+    </div>
+  </header>
 
+  <!-- Main Content -->
+  <main class="flex-grow max-w-7xl mx-auto py-12 px-4">
+    <!-- Popular Conversions Section -->
+    <section class="mb-12 text-center">
+      <h2 class="text-3xl font-bold mb-2">Popular Crypto to Mobile Money Conversions</h2>
+      <p class="text-gray-400">Check estimated rates for your region with our <strong>crypto conversion checker</strong></p>
+    </section>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- M-Pesa Card -->
+      <a href="/pages/btc-to-mpesa/index.html" class="card-hover bg-gray-800 rounded-xl p-6 relative overflow-hidden group">
+        <div class="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        <div class="flex items-center mb-4">
+          <i class="fas fa-wallet text-3xl text-blue-500"></i>
+          <div class="ml-4">
+            <h3 class="text-xl font-semibold">BTC/USDT → M-Pesa</h3>
+            <p class="text-sm text-blue-400">Kenya, Tanzania</p>
+          </div>
+        </div>
+        <div class="flex justify-between items-center text-sm">
+          <span class="text-gray-400">Estimated Rate:</span>
+          <span class="font-mono text-blue-400 loading" id="btc-to-kes-rate">Loading...</span>
+          <span class="font-mono text-blue-400 loading" id="usdt-to-kes-rate" style="display: none;">Loading...</span>
+        </div>
+      </a>
+
+      <!-- Naira Card -->
+      <a href="/pages/btc-to-naira/index.html" class="card-hover bg-gray-800 rounded-xl p-6 relative overflow-hidden group">
+        <div class="absolute inset-0 bg-gradient-to-br from-green-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        <div class="flex items-center mb-4">
+          <i class="fas fa-money-bill-wave text-3xl text-green-500"></i>
+          <div class="ml-4">
+            <h3 class="text-xl font-semibold">BTC/USDT → Nigerian Naira</h3>
+            <p class="text-sm text-green-400">Nigeria</p>
+          </div>
+        </div>
+        <div class="flex justify-between items-center text-sm">
+          <span class="text-gray-400">Estimated Rate:</span>
+          <span class="font-mono text-green-400 loading" id="btc-to-ngn-rate">Loading...</span>
+          <span class="font-mono text-green-400 loading" id="usdt-to-ngn-rate" style="display: none;">Loading...</span>
+        </div>
+      </a>
+
+      <!-- GCash Card -->
+      <a href="/pages/btc-to-gcash/index.html" class="card-hover bg-gray-800 rounded-xl p-6 relative overflow-hidden group">
+        <div class="absolute inset-0 bg-gradient-to-br from-purple-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        <div class="flex items-center mb-4">
+          <i class="fas fa-mobile-alt text-3xl text-purple-500"></i>
+          <div class="ml-4">
+            <h3 class="text-xl font-semibold">BTC/USDT → GCash</h3>
+            <p class="text-sm text-purple-400">Philippines</p>
+          </div>
+        </div>
+        <div class="flex justify-between items-center text-sm">
+          <span class="text-gray-400">Estimated Rate:</span>
+          <span class="font-mono text-purple-400 loading" id="btc-to-php-rate">Loading...</span>
+          <span class="font-mono text-purple-400 loading" id="usdt-to-php-rate" style="display: none;">Loading...</span>
+        </div>
+      </a>
+
+      <!-- Airtel Money Card -->
+      <a href="/pages/btc-to-airtel/index.html" class="card-hover bg-gray-800 rounded-xl p-6 relative overflow-hidden group">
+        <div class="absolute inset-0 bg-gradient-to-br from-red-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        <div class="flex items-center mb-4">
+          <i class="fas fa-credit-card text-3xl text-red-500"></i>
+          <div class="ml-4">
+            <h3 class="text-xl font-semibold">BTC/USDT → Airtel Money</h3>
+            <p class="text-sm text-red-400">Ghana, Uganda, Rwanda</p>
+          </div>
+        </div>
+        <div class="flex justify-between items-center text-sm">
+          <span class="text-gray-400">Estimated Rate:</span>
+          <span class="font-mono text-red-400 loading" id="btc-to-ghs-rate">Loading...</span>
+          <span class="font-mono text-red-400 loading" id="usdt-to-ghs-rate" style="display: none;">Loading...</span>
+        </div>
+      </a>
+
+      <!-- Vodacom M-Pesa Card -->
+      <a href="/pages/btc-to-vodacom-mpesa/index.html" class="card-hover bg-gray-800 rounded-xl p-6 relative overflow-hidden group">
+        <div class="absolute inset-0 bg-gradient-to-br from-teal-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        <div class="flex items-center mb-4">
+          <i class="fas fa-wallet text-3xl text-teal-500"></i>
+          <div class="ml-4">
+            <h3 class="text-xl font-semibold">BTC/USDT → Vodacom M-Pesa</h3>
+            <p class="text-sm text-teal-400">Tanzania, DRC</p>
+          </div>
+        </div>
+        <div class="flex justify-between items-center text-sm">
+          <span class="text-gray-400">Estimated Rate:</span>
+          <span class="font-mono text-teal-400 loading" id="btc-to-tzs-rate">Loading...</span>
+          <span class="font-mono text-teal-400 loading" id="usdt-to-tzs-rate" style="display: none;">Loading...</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- New Section: How to Convert Crypto to Mobile Money -->
+    <section class="mt-16">
+      <h2 class="text-3xl font-bold mb-4 text-center">How to Convert Crypto to Mobile Money: A Quick Guide</h2>
+      <p class="text-gray-400 mb-6 text-center">Learn how to estimate <strong>cryptocurrency conversion rates</strong> with CashCrypto and understand the process of converting BTC or USDT to mobile money in your region.</p>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="p-6 bg-gray-800 rounded-xl">
+          <h3 class="text-xl font-semibold mb-2">Step 1: Check Real-Time Rates</h3>
+          <p class="text-gray-400">Use our <strong>crypto conversion checker</strong> to get estimated rates for BTC to M-Pesa, Nigerian Naira, GCash, and more. Rates are updated every 5 minutes.</p>
+        </div>
+        <div class="p-6 bg-gray-800 rounded-xl">
+          <h3 class="text-xl font-semibold mb-2">Step 2: Select Your Region</h3>
+          <p class="text-gray-400">Choose your mobile money service (e.g., <strong>BTC to M-Pesa conversion</strong> for Kenya or <strong>crypto to Naira rates</strong> for Nigeria) to see tailored estimates.</p>
+        </div>
+        <div class="p-6 bg-gray-800 rounded-xl">
+          <h3 class="text-xl font-semibold mb-2">Step 3: Understand the Market</h3>
+          <p class="text-gray-400">Stay informed about <strong>cryptocurrency conversion rates</strong> and market trends to make better decisions when converting to mobile money.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- New Section: Why Use CashCrypto -->
+    <section class="mt-16">
+      <h2 class="text-3xl font-bold mb-4 text-center">Why Use CashCrypto for Crypto Conversion Rates?</h2>
+      <p class="text-gray-400 mb-6 text-center">CashCrypto provides accurate and up-to-date estimates for converting crypto to mobile money across Africa and Southeast Asia.</p>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="p-6 bg-gray-800 rounded-xl">
+          <h3 class="text-xl font-semibold mb-2">Real-Time Crypto Rates</h3>
+          <p class="text-gray-400">Get <strong>real-time BTC to M-Pesa rates</strong>, <strong>USDT to GCash</strong>, and more, sourced from trusted APIs like CoinGecko.</p>
+        </div>
+        <div class="p-6 bg-gray-800 rounded-xl">
+          <h3 class="text-xl font-semibold mb-2">Region-Specific Estimates</h3>
+          <p class="text-gray-400">Tailored for users in Kenya, Nigeria, Philippines, Ghana, Tanzania, and beyond with <strong>crypto conversion Kenya</strong> and <strong>BTC to Naira Nigeria rates</strong>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- New Section: FAQ -->
+    <section class="mt-16">
+      <h2 class="text-3xl font-bold mb-4 text-center">Frequently Asked Questions</h2>
+      <div class="space-y-6">
+        <div>
+          <h3 class="text-xl font-semibold mb-2">How can I convert BTC to mobile money?</h3>
+          <p class="text-gray-400">Use CashCrypto to estimate <strong>convert BTC to mobile money</strong> rates for services like M-Pesa, GCash, or Airtel Money. These rates help you understand potential conversion values before proceeding with an exchange service.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold mb-2">What are the best crypto conversion rates in 2025?</h3>
+          <p class="text-gray-400">CashCrypto provides some of the <strong>best crypto conversion rates 2025</strong> by fetching real-time data for BTC and USDT to mobile money conversions.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold mb-2">How accurate are cryptocurrency conversion rates?</h3>
+          <p class="text-gray-400">Our <strong>cryptocurrency conversion rates</strong> are estimates based on CoinGecko API data. Actual rates may vary depending on exchange fees and market volatility.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Disclaimer -->
+    <div class="mt-12 text-center text-gray-500">
+      <p><em>Disclaimer: These are estimated rates based on current crypto prices. Actual conversions depend on exchange rates and service providers.</em></p>
+    </div>
+  </main>
+
+  <!-- Enhanced Footer -->
+  <footer class="bg-gray-800 mt-24 py-8">
+    <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-4 gap-8">
+      <div>
+        <h4 class="text-lg font-semibold mb-4">CashCrypto</h4>
+        <p class="text-gray-400 text-sm">Your tool for estimating <strong>crypto to mobile money</strong> conversions</p>
+      </div>
+      <div>
+        <h4 class="text-lg font-semibold mb-4">Services</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#" class="text-gray-400 hover:text-blue-400">Crypto Conversion Checker</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-blue-400">Conversion Guide</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-lg font-semibold mb-4">Support</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#" class="text-gray-400 hover:text-blue-400">Help Center</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-blue-400">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-lg font-semibold mb-4">Connect</h4>
+        <div class="flex space-x-4">
+          <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-facebook"></i></a>
+          <a href="#" class="text-gray-400 hover:text-blue-400"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="mt-8 pt-8 border-t border-gray-700 text-center text-sm text-gray-400">
+      <p>© 2025 CashCrypto. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/api.js" defer></script>
+</body>
+</html>
