@@ -36,7 +36,7 @@ nav a:hover {
   color: #63b3ed; /* Matches Tailwind's text-blue-400 */
 }
 
-/* Dropdown Menu Styles */
+/* Dropdown Menu Styles (for blog page) */
 nav ul ul {
   display: none;
 }
@@ -127,35 +127,72 @@ input[type="number"]:focus, select:focus {
 
 /* Responsive adjustments */
 @media (max-width: 640px) {
-  .card-hover {
-    margin: 0 auto;
-    max-width: 300px;
-  }
-
-  nav ul {
+  /* Navigation adjustments for mobile */
+  nav .nav-links {
     flex-direction: column;
-    align-items: center;
-    padding-top: 1rem;
+    align-items: flex-end;
+    gap: 1rem; /* Add spacing between links */
   }
 
   nav li {
     margin: 0.5rem 0;
   }
 
+  /* Header adjustments for mobile */
   .gradient-bg {
-    padding-top: 4rem; /* Adjust for fixed nav bar */
+    padding-top: 8rem; /* Adjust for fixed nav bar */
+    padding-bottom: 4rem; /* Ensure enough space at the bottom */
   }
 
+  .gradient-bg img {
+    height: 12rem; /* Slightly larger logo for mobile */
+  }
+
+  .gradient-bg h1 {
+    font-size: 2.5rem; /* Reduce font size for mobile */
+  }
+
+  .gradient-bg p {
+    font-size: 1rem; /* Reduce tagline font size */
+    max-width: 90%; /* Prevent overflow */
+  }
+
+  /* Main content adjustments */
   main {
     padding-top: 2rem; /* Extra padding to avoid content overlap with nav */
+    padding-bottom: 2rem;
   }
 
   .grid {
     grid-template-columns: 1fr; /* Stack cards on small screens */
   }
 
+  .card-hover {
+    margin: 0 auto;
+    max-width: 300px; /* Limit card width on mobile */
+  }
+
   .resources-section a {
     margin: 0.5rem 0;
+  }
+
+  /* Section spacing */
+  section {
+    margin-bottom: 3rem; /* Add more spacing between sections */
+  }
+
+  section h2 {
+    font-size: 1.75rem; /* Reduce heading size on mobile */
+  }
+
+  section p {
+    font-size: 0.875rem; /* Smaller text for better readability */
+  }
+
+  /* Footer adjustments */
+  footer .grid {
+    grid-template-columns: 1fr; /* Stack footer columns on mobile */
+    text-align: center;
   }
 }
 
@@ -188,7 +225,7 @@ footer a:hover {
   color: #63b3ed; /* Matches Tailwind's text-blue-400 */
 }
 
-/* Hero Banner Styles */
+/* Hero Banner Styles (for blog page) */
 .hero-banner {
   background: linear-gradient(135deg, #1a365d 0%, #2a5298 100%);
   position: relative;
@@ -210,7 +247,7 @@ footer a:hover {
   z-index: 10;
 }
 
-/* CTA Button Styles */
+/* CTA Button Styles (for blog page) */
 .cta-button {
   transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
