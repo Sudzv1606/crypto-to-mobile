@@ -7,11 +7,30 @@
 
 body {
   font-family: 'Arial', sans-serif;
+  line-height: 1.6;
 }
 
 /* Gradient background for header */
 .gradient-bg {
   background: linear-gradient(135deg, #1a365d 0%, #2a5298 100%);
+}
+
+/* Navigation Bar Styles */
+nav {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+  list-style: none;
+}
+
+nav a {
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: #63b3ed; /* Matches Tailwind's text-blue-400 */
 }
 
 /* Card hover effects */
@@ -58,7 +77,17 @@ input[type="number"], select {
 
 input[type="number"]:focus, select:focus {
   outline: none;
-  ring: 2px solid #63b3ed;
+  box-shadow: 0 0 0 2px #63b3ed; /* Matches Tailwind's ring-blue-400 */
+}
+
+/* Logo Styles */
+.logo-img {
+  max-height: 100%;
+  transition: transform 0.3s ease;
+}
+
+.logo-img:hover {
+  transform: scale(1.05);
 }
 
 /* Responsive adjustments */
@@ -67,4 +96,59 @@ input[type="number"]:focus, select:focus {
     margin: 0 auto;
     max-width: 300px;
   }
+
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+    padding-top: 1rem;
+  }
+
+  nav li {
+    margin: 0.5rem 0;
+  }
+
+  .gradient-bg {
+    padding-top: 4rem; /* Adjust for fixed nav bar */
+  }
+
+  main {
+    padding-top: 2rem; /* Extra padding to avoid content overlap with nav */
+  }
+
+  .grid {
+    grid-template-columns: 1fr; /* Stack cards on small screens */
+  }
+
+  .resources-section a {
+    margin: 0.5rem 0;
+  }
+}
+
+/* Additional custom styles for new sections */
+.resources-section {
+  padding: 1rem 0;
+}
+
+.resources-section a {
+  display: block;
+  text-decoration: none;
+  color: #e2e8f0;
+  transition: background-color 0.3s ease;
+}
+
+.resources-section a:hover {
+  background-color: #4a5568; /* Darker shade for hover effect */
+}
+
+footer {
+  padding: 2rem 0;
+}
+
+footer a {
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: #63b3ed; /* Matches Tailwind's text-blue-400 */
 }
