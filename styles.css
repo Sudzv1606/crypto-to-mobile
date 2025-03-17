@@ -152,3 +152,27 @@ footer a {
 footer a:hover {
   color: #63b3ed; /* Matches Tailwind's text-blue-400 */
 }
+/* Hero Banner Styles */
+.hero-banner {
+  background: linear-gradient(135deg, #1a365d 0%, #2a5298 100%);
+  position: relative;
+}
+
+/* Chart Lines */
+.chart-line {
+  background: #60a5fa;
+  width: 4px;
+  position: absolute;
+  bottom: 0;
+}
+
+/* Floating Dots */
+.dot {
+  position: absolute;
+  opacity: 0.5;
+}
+
+/* Stack Discs */
+.stack-disc {
+  position: relative;
+}
