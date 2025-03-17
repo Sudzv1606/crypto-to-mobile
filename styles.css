@@ -59,6 +59,7 @@ nav ul ul li {
 nav ul ul a {
   color: #a0aec0; /* Matches text-gray-300 */
   display: block;
+  font-size: 0.875rem; /* Matches text-sm */
 }
 
 nav ul ul a:hover {
@@ -207,21 +208,6 @@ footer a:hover {
 .hero-banner > * {
   position: relative;
   z-index: 10;
-}
-
-/* Neon Text Effects */
-.neon-text {
-  text-shadow: 0 0 5px #60a5fa, 0 0 10px #60a5fa, 0 0 15px #9333ea;
-  animation: neonFlicker 1.5s infinite alternate;
-}
-
-.neon-glow {
-  text-shadow: 0 0 10px #60a5fa, 0 0 20px #9333ea;
-}
-
-@keyframes neonFlicker {
-  0% { opacity: 0.9; }
-  100% { opacity: 1; }
 }
 
 /* CTA Button Styles */
